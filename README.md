@@ -44,18 +44,17 @@ Things you may want to cover:
 
 ## items テーブル
 
-| Column         | Type      | Options                          |
-| -------------- | --------- | -------------------------------- |
-| image          | string    | null: false                      |
-| item_name      | string    | null: false                      |
-| description    | text      | null; false                      |
-| category_id    | integer   | null: false                      |
-| item_status    | integer   | null: false                      |
-| shipping_fee   | integer   | null: false                      |
-| ship_from      | integer   | null: false                      |
-| days_to_ship   | integer   | null: false                      |
-| price          | integer   | null: false                      |
-| user           | references| null: false, foreign_key: true   |
+| Column             | Type      | Options                          |
+| ------------------ | --------- | -------------------------------- |
+| item_name          | string    | null: false                      |
+| description        | text      | null; false                      |
+| category_id        | integer   | null: false                      |
+| status_id          | integer   | null: false                      |
+| shipping_fee_id    | integer   | null: false                      |
+| ship_from_id       | integer   | null: false                      |
+| preparation_days_id| integer   | null: false                      |
+| price              | integer   | null: false                      |
+| user               | references| null: false, foreign_key: true   |
 
 
 ### Association
@@ -67,7 +66,7 @@ Things you may want to cover:
 
 | Column        | Type       | Options                        |
 |---------------|------------|--------------------------------|
-| item_id       | references | null: false, foreign_key: true |
+| item          | references | null: false, foreign_key: true |
 | user          | references | null: false, foreign_key: true |
 
 ### Association
@@ -84,11 +83,10 @@ Things you may want to cover:
 | prefecture_id   | string     | null: false                   |
 | city            | string     | null: false                   |
 | block_number    | string     | null: false                   |
-| building_name   | string     | null: false                   |
+| building_name   | string     |                               |
 | tel             | string     | null: false                   | 
 | purchase_record | references | null: false, foreign_key: true|
 
 ### Association
 
-- belongs_to :user
 - belongs_to :purchase_record
