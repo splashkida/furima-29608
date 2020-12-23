@@ -4,6 +4,10 @@ class HomeController < ApplicationController
   def index
   end
 
+  def index
+    @items = Item.all
+  end
+
   private
 
   def move_to_index
