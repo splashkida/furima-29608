@@ -5,7 +5,7 @@ class HomeController < ApplicationController
   end
 
   def index
-    @items = Item.all
+    @items = Item.order("created_at DESC")
   end
 
   private
