@@ -4,6 +4,10 @@ class HomeController < ApplicationController
   def index
   end
 
+  def index
+    @items = Item.order("created_at DESC")
+  end
+
   private
 
   def move_to_index
