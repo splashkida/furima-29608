@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
+  before_action :set_item, only: [:show, :edit, :update]
 
   def new
     @item = Item.new
@@ -8,7 +9,7 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     if @item.valid?
-      @item.update
+      @item.save
       redirect_to root_path
     else
       render :new
@@ -16,22 +17,24 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
   end
 
   def edit
-    @item = Item.find(params[:id])
+    unless current_user.id == @item.user_id
+      redirect_to root_path
+    end
   end
 
   def update
-    item = Item.find(params[:id])
-    item.update(item_params)
-    @item = item
-    if item.update(item_params)
+    if @item.update(item_params)
       redirect_to root_path
     else
       render :edit
     end
+  end
+
+  def set_item
+    @item = Item.find(params[:id])
   end
 
   private
