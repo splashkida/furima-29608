@@ -1,7 +1,10 @@
 class Order
 
   include ActiveModel::Model
-  attr_accessor :item_id, :user_id, :postcode, :prefecture_id, :city, :block_number, :building_name, :tel, :purchase_record_id
+  attr_accessor :item_id, :user_id, :postcode, :prefecture_id, :city, :block_number, :building_name, :tel, :purchase_record_id, :token
+
+# 「クレカ情報」に関するバリデーション
+  validates :token, presence: true
 
 # 「purchase_record」に関するバリデーション
 with_options presence: true do
