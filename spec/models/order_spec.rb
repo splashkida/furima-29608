@@ -10,6 +10,12 @@ RSpec.describe Order, type: :model do
     it 'token・ユーザー情報・アイテム情報・郵便番号・都道府県・市区町村・番地・電話番号があれば購入できる' do
       expect(@order).to be_valid
     end
+
+    it '建物名が抜けていても購入できる' do
+      @order.building_name = nil
+      expect(@order).to be_valid
+    end
+
   end
 
   context '商品購入がうまくいかない時' do
@@ -44,7 +50,7 @@ RSpec.describe Order, type: :model do
     end
 
     it '郵便番号にはハイフンがないと購入できない' do
-      @order.postcode = 12_345_678
+      @order.postcode = 12345678
       @order.valid?
       expect(@order.errors.full_messages).to include('Postcode is invalid')
     end
@@ -56,7 +62,7 @@ RSpec.describe Order, type: :model do
     end
 
     it '電話番号は１１桁以内の数字である' do
-      @order.tel = 12_345_678_912_345
+      @order.tel = 12345678912345
       @order.valid?
       expect(@order.errors.full_messages).to include('Tel is invalid')
     end

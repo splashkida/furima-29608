@@ -21,13 +21,15 @@ class PurchaseRecordsController < ApplicationController
     end
   end
 
-  def set_item
-    @item = Item.find(params[:item_id])
+
+  private
+
+  def order_params
+    params.require(:order).permit(:postcode, :prefecture_id, :city, :block_number, :building_name, :tel).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
-  # 出品者はURLを直接入力して購入ページへ遷移しようとするとトップページへ遷移される
-  def user_restriction
-    redirect_to root_path if current_user.id == @item.user_id
+  def set_item
+    @item = Item.find(params[:item_id])
   end
 
   # URLを直接入力して購入済み商品の購入ページへ遷移しようとするとトップページへ遷移される
@@ -36,6 +38,11 @@ class PurchaseRecordsController < ApplicationController
       # 「@item.purchase_record != nil」ともかける
       redirect_to root_path
     end
+  end
+
+  # 出品者はURLを直接入力して購入ページへ遷移しようとするとトップページへ遷移される
+  def user_restriction
+    redirect_to root_path if current_user.id == @item.user_id
   end
 
   # createアクションのPAY.JPの記述をリファクタリング
@@ -48,9 +55,4 @@ class PurchaseRecordsController < ApplicationController
     )
   end
 
-  private
-
-  def order_params
-    params.require(:order).permit(:user_id, :item_id, :postcode, :prefecture_id, :city, :block_number, :building_name, :tel, :purchase_record_id).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
-  end
 end

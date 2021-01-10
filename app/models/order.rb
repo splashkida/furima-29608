@@ -1,6 +1,6 @@
 class Order
   include ActiveModel::Model
-  attr_accessor :item_id, :user_id, :postcode, :prefecture_id, :city, :block_number, :building_name, :tel, :purchase_record_id, :token
+  attr_accessor :item_id, :user_id, :postcode, :prefecture_id, :city, :block_number, :building_name, :tel, :token
 
   # 「クレカ情報」に関するバリデーション
   validates :token, presence: true
@@ -17,7 +17,7 @@ class Order
     validates :prefecture_id, numericality: { other_than: 1 }
     validates :city
     validates :block_number
-    validates :tel, format: { with: /\A\d{,11}\z/ }
+    validates :tel, format: { with: /\A\d{10,11}\z/ }
   end
 
   def save
