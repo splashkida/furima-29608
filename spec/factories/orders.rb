@@ -4,9 +4,9 @@ FactoryBot.define do
     prefecture_id       { 28 }
     city                { '大阪市' }
     block_number        { '北区' }
-    tel                 { 12341234444 }
+    tel                 { 12_341_234_444 }
     user_id             { 1 }
     item_id             { 1 }
-    token               { "tok_abcdefghijk00000000000000000" }
+    token               { 'tok_abcdefghijk00000000000000000' }
   end
 end
