@@ -3,6 +3,10 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :sold_out, only: [:edit, :destroy]
 
+  def new
+    @item = Item.new
+  end
+
   def create
     @item = Item.new(item_params)
     if @item.valid?
